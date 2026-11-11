@@ -1,0 +1,147 @@
+# ==========================================
+# Infravision .gitignore
+# ==========================================
+
+# ------------------------------------------
+# Secrets & Environment Configurations
+# ------------------------------------------
+.env
+.env.*
+.env.local
+!.env.example
+*.pem
+*.key
+*.cert
+*.crt
+
+# ------------------------------------------
+# Node.js & Frontend Artifacts
+# ------------------------------------------
+node_modules/
+dist/
+dist-ssr/
+.vite/
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ------------------------------------------
+# Python & Virtual Environments
+# ------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# ------------------------------------------
+# Testing & Code Quality
+# ------------------------------------------
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage/
+.hypothesis/
+
+# ------------------------------------------
+# Databases & Persistent Volumes
+# ------------------------------------------
+pgdata/
+postgres_data/
+*.sqlite
+*.sqlite3
+*.db
+
+# ------------------------------------------
+# Operating System Artifacts
+# ------------------------------------------
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ------------------------------------------
+# IDE & Editor Specific Files
+# ------------------------------------------
+# Visual Studio Code & Cursor
+.vscode/
+.vscode/*
+.cursor/
+*.code-workspace
+.history/
+.ionide/
+
+# JetBrains (PyCharm, IntelliJ, WebStorm)
+.idea/
+.idea/*
+*.iml
+*.iws
+*.ipr
+out/
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Vim / Neovim / Nano / Emacs
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+*.swp
+*.swo
+*.swn
+*.bak
+[._]*.un~
+Session.vim
+.netrwhist
+*#
+.#*

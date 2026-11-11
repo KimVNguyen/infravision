@@ -1,0 +1,59 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: infravision-postgres
+    restart: unless-stopped
+    user: "postgres"
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-infravision}
+      POSTGRES_USER: ${POSTGRES_USER:-infravision}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-infravision_secret_change_me}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-infravision} -d ${POSTGRES_DB:-infravision}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: infravision-backend
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DEV_MODE: ${DEV_MODE:-true}
+      DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg://infravision:infravision_secret_change_me@postgres:5432/infravision}
+    volumes:
+      - "./backend/src:/app/src"
+      - "${HOST_WORKSPACE:-..}:/workspace:ro"
+      - "${STORYBOT_UI_PATH:-../story_bot/frontend}:/storybot-ui:ro"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: infravision-frontend
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DEV_MODE: ${DEV_MODE:-true}
+      VITE_API_TARGET: http://backend:8000
+    volumes:
+      - "./frontend:/app"
+      - "/app/node_modules"
+    ports:
+      - "${FRONTEND_PORT:-5173}:5173"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
+    name: infravision-pgdata
